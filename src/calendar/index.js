@@ -71,6 +71,8 @@ class Calendar extends Component {
     onPressArrowRight: PropTypes.func,
     // Style passed to the header
     headerStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array])
+    // Custom wrapper component for current day
+    currentDayWrapper: PropTypes.node,
   };
 
   constructor(props) {
@@ -164,20 +166,23 @@ class Calendar extends Component {
     const DayComp = this.getDayComponent();
     const date = day.getDate();
     const dateAsObject = xdateToData(day);
+    const TodayWrapper = this.props.currentDayWrapper || View;
 
     return (
       <View style={{flex: 1, alignItems: 'center'}} key={id}>
-        <DayComp
-          testID={`${SELECT_DATE_SLOT}-${dateAsObject.dateString}`}
-          state={state}
-          theme={this.props.theme}
-          onPress={this.pressDay}
-          onLongPress={this.longPressDay}
-          date={dateAsObject}
-          marking={this.getDateMarking(day)}
-        >
-          {date}
-        </DayComp>
+        <TodayWrapper>
+          <DayComp
+            testID={`${SELECT_DATE_SLOT}-${dateAsObject.dateString}`}
+            state={state}
+            theme={this.props.theme}
+            onPress={this.pressDay}
+            onLongPress={this.longPressDay}
+            date={dateAsObject}
+            marking={this.getDateMarking(day)}
+          >
+            {date}
+          </DayComp>
+        </TodayWrapper>
       </View>
     );
   }
