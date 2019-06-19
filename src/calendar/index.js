@@ -168,23 +168,35 @@ class Calendar extends Component {
     const dateAsObject = xdateToData(day);
     const TodayWrapper = this.props.currentDayWrapper || View;
 
-    return (
-      <View style={{flex: 1, alignItems: 'center'}} key={id}>
-        <TodayWrapper>
-          <DayComp
-            testID={`${SELECT_DATE_SLOT}-${dateAsObject.dateString}`}
-            state={state}
-            theme={this.props.theme}
-            onPress={this.pressDay}
-            onLongPress={this.longPressDay}
-            date={dateAsObject}
-            marking={this.getDateMarking(day)}
-          >
-            {date}
-          </DayComp>
-        </TodayWrapper>
-      </View>
+    const Day = (
+      <DayComp
+        testID={`${SELECT_DATE_SLOT}-${dateAsObject.dateString}`}
+        state={state}
+        theme={this.props.theme}
+        onPress={this.pressDay}
+        onLongPress={this.longPressDay}
+        date={dateAsObject}
+        marking={this.getDateMarking(day)}
+      >
+        {date}
+      </DayComp>
     );
+
+    if (state === 'today') {
+      return (
+        <View style={{flex: 1, alignItems: 'center'}} key={id}>
+          <TodayWrapper>
+            {Day}
+          </TodayWrapper>
+        </View>
+      );
+    } else {
+      return (
+        <View style={{flex: 1, alignItems: 'center'}} key={id}>
+          {Day}
+        </View>
+      )
+    }
   }
 
   getDayComponent() {
