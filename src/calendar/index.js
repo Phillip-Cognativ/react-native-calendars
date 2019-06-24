@@ -72,7 +72,7 @@ class Calendar extends Component {
     // Style passed to the header
     headerStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
     // Custom wrapper component for current day
-    currentDayWrapper: PropTypes.node,
+    currentDayWrapper: PropTypes.any,
   };
 
   constructor(props) {
